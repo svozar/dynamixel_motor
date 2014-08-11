@@ -157,6 +157,9 @@ class DynamixelIO(object):
         # directly from AX-12 manual:
         # Check Sum = ~ (ID + LENGTH + INSTRUCTION + PARAM_1 + ... + PARAM_N)
         # If the calculated value is > 255, the lower byte is the check sum.
+
+        #TODO: change addresses from constants to dictionary lookups, based on the servo type. Then the addresses used in read and write are based on that lookup.
+
         checksum = 255 - ((servo_id + length + DXL_WRITE_DATA + address + sum(data)) % 256)
 
         # packet: FF  FF  ID LENGTH INSTRUCTION PARAM_1 ... CHECKSUM
@@ -951,4 +954,3 @@ class DroppedPacketError(Exception):
         self.message = message
     def __str__(self):
         return self.message
-
